@@ -1,7 +1,7 @@
 import sqlite3
 
 from flask import Flask
-from flask import flash, redirect, render_template, request
+from flask import flash, redirect, render_template, request, session
 
 import config
 import users
@@ -32,4 +32,29 @@ def create():
         flash("VIRHE: tunnus on jo varattu")
         return redirect("/register")
 
+    return redirect("/")
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "GET":
+        return render_template("login.html")
+
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+
+        user_id = users.check_login(username, password)
+        if user_id:
+            session["user_id"] = user_id
+            session["username"] = username
+            return redirect("/")
+        else:
+            flash("VIRHE: väärä tunnus tai salasana")
+            return redirect("/login")
+
+@app.route("/logout")
+def logout():
+    if "user_id" in session:
+        del session["user_id"]
+        del session["username"]
     return redirect("/")
