@@ -1,17 +1,39 @@
 import sqlite3
 
 from flask import Flask
-from flask import flash, redirect, render_template, request, session
+from flask import abort, flash, redirect, render_template, request, session
 
 import config
+import recipes
 import users
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
+def require_login():
+    if "user_id" not in session:
+        abort(403)
 
 @app.route("/")
 def index():
     return render_template("index.html")
+
+@app.route("/new_recipe")
+def new_recipe():
+    require_login()
+    return render_template("new_recipe.html")
+
+@app.route("/create_recipe", methods=["POST"])
+def create_recipe():
+    require_login()
+
+    title = request.form["title"]
+    ingredients = request.form["ingredients"]
+    instructions = request.form["instructions"]
+    user_id = session["user_id"]
+
+    recipes.add_recipe(title, ingredients, instructions, user_id)
+
+    return redirect("/")
 
 @app.route("/register")
 def register():
