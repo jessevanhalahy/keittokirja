@@ -8,3 +8,16 @@ def add_recipe(title, ingredients, instructions, user_id):
 def get_recipes():
     sql = "SELECT id, title FROM recipes ORDER BY id DESC"
     return db.query(sql)
+
+def get_recipe(recipe_id):
+    sql = """SELECT recipes.id,
+                    recipes.title,
+                    recipes.ingredients,
+                    recipes.instructions,
+                    users.id user_id,
+                    users.username
+             FROM recipes, users
+             WHERE recipes.user_id = users.id AND
+                   recipes.id = ?"""
+    result = db.query(sql, [recipe_id])
+    return result[0] if result else None
