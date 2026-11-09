@@ -15,7 +15,8 @@ def require_login():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    all_recipes = recipes.get_recipes()
+    return render_template("index.html", recipes=all_recipes)
 
 @app.route("/new_recipe")
 def new_recipe():

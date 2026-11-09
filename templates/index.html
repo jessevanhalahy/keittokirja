@@ -22,6 +22,12 @@
   </p>
   {% endif %}
   <p>Tervetuloa Keittokirjaan!</p>
+  <h2>Reseptit</h2>
+  <ul>
+    {% for recipe in recipes %}
+    <li>{{ recipe.title }}</li>
+    {% endfor %}
+  </ul>
 </body>
 
 </html>
