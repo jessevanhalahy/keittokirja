@@ -21,3 +21,10 @@ def get_recipe(recipe_id):
                    recipes.id = ?"""
     result = db.query(sql, [recipe_id])
     return result[0] if result else None
+
+def update_recipe(recipe_id, title, ingredients, instructions):
+    sql = """UPDATE recipes SET title = ?,
+                                ingredients = ?,
+                                instructions = ?
+                            WHERE id = ?"""
+    db.execute(sql, [title, ingredients, instructions, recipe_id])
