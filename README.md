@@ -12,11 +12,20 @@
 
 ## Sovelluksen asennus
 
-- Asenna 'flask' -kirjasto:
-    $ pip install flask
+Asenna `flask`-kirjasto:
 
-- Luo tietokannan taulut:
-    $ sqlite3 database.db < schema.sql
+```
+$ pip install flask
+```
 
-- Käynnistä sovellus:
-    $ flask run
+Luo tietokannan taulut:
+
+```
+$ sqlite3 database.db < schema.sql
+```
+
+Käynnistä sovellus:
+
+```
+$ flask run
+```
