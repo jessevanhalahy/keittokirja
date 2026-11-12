@@ -36,4 +36,4 @@ Käynnistä sovellus:
 ```
 $ flask run
 ```
-Sovellus avautuu selaimessa osoitteessa http://127.0.0.1:5000.
+Sovellus avautuu selaimessa osoitteessa http://127.0.0.1:5000
