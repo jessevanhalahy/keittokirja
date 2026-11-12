@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Reseptien haku</title>
+</head>
+
+<body>
+  <h1>Reseptien haku</h1>
+  <form action="/find_recipe" method="get">
+    <p>
+      Hakusana: <br />
+      <input type="text" name="query" value="{{ query }}" />
+    </p>
+    <input type="submit" value="Hae" />
+  </form>
+  {% if query %}
+  <h2>Tulokset</h2>
+  <ul>
+    {% for recipe in results %}
+    <li><a href="/recipe/{{ recipe.id }}">{{ recipe.title }}</a></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  <p>
+    <a href="/">Takaisin etusivulle</a>
+  </p>
+</body>
+
+</html>
