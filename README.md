@@ -10,6 +10,13 @@
 - Käyttäjä pystyy valitsemaan reseptille yhden tai useamman luokittelun (ruokalaji ja valmistusaika).
 - Käyttäjä pystyy antamaan reseptille arvion (arvosana ja kommentti). Reseptin sivulla näkyy annetut arviot ja arvioiden keskiarvo.
 
+## Sovelluksen nykyinen tilanne
+
+- Käyttäjä pystyy luomaan tunnuksen ja kirjautumaan sisään.
+- Käyttäjä pystyy lisäämään, muokkaamaan ja poistamaan reseptejä.
+- Käyttäjä näkee lisätyt reseptit ja pystyy etsimään niitä hakusanalla.
+- Luokittelut, arviot ja käyttäjäsivut ovat vielä tekemättä.
+
 ## Sovelluksen asennus
 
 Asenna `flask`-kirjasto:
@@ -29,3 +36,4 @@ Käynnistä sovellus:
 ```
 $ flask run
 ```
+Sovellus avautuu selaimessa osoitteessa http://127.0.0.1:5000.
