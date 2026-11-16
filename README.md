@@ -19,6 +19,13 @@
 
 ## Sovelluksen asennus
 
+Luo virtuaaliympäristö ja ota se käyttöön:
+
+```
+$ python3 -m venv venv
+$ source venv/bin/activate
+```
+
 Asenna `flask`-kirjasto:
 
 ```
