@@ -122,6 +122,12 @@ def create():
     username = request.form["username"]
     password1 = request.form["password1"]
     password2 = request.form["password2"]
+    if not username or len(username) > 20:
+        flash("VIRHE: tunnuksen pitää olla 1–20 merkkiä pitkä")
+        return redirect("/register")
+    if not password1 or len(password1) > 100:
+        flash("VIRHE: salasanan pitää olla 1–100 merkkiä pitkä")
+        return redirect("/register")
     if password1 != password2:
         flash("VIRHE: salasanat eivät ole samat")
         return redirect("/register")
