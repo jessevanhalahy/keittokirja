@@ -1,0 +1,58 @@
+body {
+  margin: auto;
+  max-width: 50em;
+  font-family: sans-serif;
+  background-color: #f4efe6;
+}
+
+h1, h2 {
+  margin: 0;
+}
+
+.header {
+  background-color: #8b3a1e;
+  color: white;
+  padding: 1em;
+  margin: 0.5em 0;
+}
+
+.nav {
+  background-color: #e3d5bf;
+  padding: 0.5em;
+  margin: 0.5em 0;
+}
+
+.content {
+  background-color: white;
+  padding: 1em;
+  margin: 0.5em 0;
+}
+
+.info {
+  border: 2px solid #8b3a1e;
+  padding: 0.5em;
+  background-color: #fbe9e1;
+}
+
+nav {
+  text-align: center;
+}
+
+nav ul {
+  padding: 0;
+  margin: 0;
+}
+
+nav li {
+  display: inline-block;
+  padding: 0 1em;
+  margin: 0;
+}
+
+nav li:not(:first-of-type) {
+  margin-left: -0.25em;
+}
+
+nav li:not(:last-of-type) {
+  border-right: 1px solid black;
+}
