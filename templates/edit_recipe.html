@@ -1,28 +1,23 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Reseptin muokkaus</title>
-</head>
+{% block title %}Reseptin muokkaus{% endblock %}
 
-<body>
-  <h1>Reseptin muokkaus</h1>
-  <form action="/update_recipe" method="post">
-    <p>
-      Nimi: <br />
-      <input type="text" name="title" value="{{ recipe.title }}" maxlength="100" required />
-    </p>
-    <p>
-      Ainekset: <br />
-      <textarea name="ingredients" rows="8" cols="60" maxlength="2000" required>{{ recipe.ingredients }}</textarea>
-    </p>
-    <p>
-      Valmistusohje: <br />
-      <textarea name="instructions" rows="8" cols="60" maxlength="5000" required>{{ recipe.instructions }}</textarea>
-    </p>
-    <input type="hidden" name="recipe_id" value="{{ recipe.id }}" />
-    <input type="submit" value="Tallenna muutokset" />
-  </form>
-</body>
-
-</html>
+{% block content %}
+<h2>Reseptin muokkaus</h2>
+<form action="/update_recipe" method="post">
+  <p>
+    Nimi: <br />
+    <input type="text" name="title" value="{{ recipe.title }}" maxlength="100" required />
+  </p>
+  <p>
+    Ainekset: <br />
+    <textarea name="ingredients" rows="8" cols="60" maxlength="2000" required>{{ recipe.ingredients }}</textarea>
+  </p>
+  <p>
+    Valmistusohje: <br />
+    <textarea name="instructions" rows="8" cols="60" maxlength="5000" required>{{ recipe.instructions }}</textarea>
+  </p>
+  <input type="hidden" name="recipe_id" value="{{ recipe.id }}" />
+  <input type="submit" value="Tallenna muutokset" />
+</form>
+{% endblock %}

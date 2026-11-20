@@ -1,27 +1,22 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Uusi resepti</title>
-</head>
+{% block title %}Uusi resepti{% endblock %}
 
-<body>
-  <h1>Uusi resepti</h1>
-  <form action="/create_recipe" method="post">
-    <p>
-      Nimi: <br />
-      <input type="text" name="title" maxlength="100" required />
-    </p>
-    <p>
-      Ainekset: <br />
-      <textarea name="ingredients" rows="8" cols="60" maxlength="2000" required></textarea>
-    </p>
-    <p>
-      Valmistusohje: <br />
-      <textarea name="instructions" rows="8" cols="60" maxlength="5000" required></textarea>
-    </p>
-    <input type="submit" value="Lisää resepti" />
-  </form>
-</body>
-
-</html>
+{% block content %}
+<h2>Uusi resepti</h2>
+<form action="/create_recipe" method="post">
+  <p>
+    Nimi: <br />
+    <input type="text" name="title" maxlength="100" required />
+  </p>
+  <p>
+    Ainekset: <br />
+    <textarea name="ingredients" rows="8" cols="60" maxlength="2000" required></textarea>
+  </p>
+  <p>
+    Valmistusohje: <br />
+    <textarea name="instructions" rows="8" cols="60" maxlength="5000" required></textarea>
+  </p>
+  <input type="submit" value="Lisää resepti" />
+</form>
+{% endblock %}

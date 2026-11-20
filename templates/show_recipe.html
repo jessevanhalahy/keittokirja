@@ -1,28 +1,20 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>{{ recipe.title }}</title>
-</head>
+{% block title %}{{ recipe.title }}{% endblock %}
 
-<body>
-  <h1>{{ recipe.title }}</h1>
-  <p>
-    Lisääjä: {{ recipe.username }}
-   {% if session.user_id == recipe.user_id %}
-  <p>
-    <a href="/edit_recipe/{{ recipe.id }}">Muokkaa</a>
-    <a href="/remove_recipe/{{ recipe.id }}">Poista</a>
-  </p>
-  {% endif %}
-  </p>
-  <h2>Ainekset</h2>
-  <p>{{ recipe.ingredients }}</p>
-  <h2>Valmistusohje</h2>
-  <p>{{ recipe.instructions }}</p>
-  <p>
-    <a href="/">Takaisin etusivulle</a>
-  </p>
-</body>
-
-</html>
+{% block content %}
+<h2>{{ recipe.title }}</h2>
+<p>
+  Lisääjä: {{ recipe.username }}
+</p>
+{% if session.user_id == recipe.user_id %}
+<p>
+  <a href="/edit_recipe/{{ recipe.id }}">Muokkaa</a> |
+  <a href="/remove_recipe/{{ recipe.id }}">Poista</a>
+</p>
+{% endif %}
+<h3>Ainekset</h3>
+<p>{{ recipe.ingredients }}</p>
+<h3>Valmistusohje</h3>
+<p>{{ recipe.instructions }}</p>
+{% endblock %}
