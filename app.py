@@ -140,28 +140,34 @@ def remove_recipe(recipe_id):
 
 @app.route("/register")
 def register():
-    return render_template("register.html")
+    return render_template("register.html", filled={})
 
 @app.route("/create", methods=["POST"])
 def create():
     username = request.form["username"]
     password1 = request.form["password1"]
     password2 = request.form["password2"]
+
+    errors = []
     if not username or len(username) > 20:
-        flash("VIRHE: tunnuksen pitää olla 1–20 merkkiä pitkä")
-        return redirect("/register")
+        errors.append("VIRHE: tunnuksen täytyy olla 1–20 merkkiä pitkä")
     if not password1 or len(password1) > 100:
-        flash("VIRHE: salasanan pitää olla 1–100 merkkiä pitkä")
-        return redirect("/register")
+        errors.append("VIRHE: salasanan täytyy olla 1–100 merkkiä pitkä")
     if password1 != password2:
-        flash("VIRHE: salasanat eivät ole samat")
-        return redirect("/register")
+        errors.append("VIRHE: salasanat eivät ole samat")
+
+    if errors:
+        for error in errors:
+            flash(error)
+        filled = {"username": username}
+        return render_template("register.html", filled=filled)
 
     try:
         users.create_user(username, password1)
     except sqlite3.IntegrityError:
         flash("VIRHE: tunnus on jo varattu")
-        return redirect("/register")
+        filled = {"username": username}
+        return render_template("register.html", filled=filled)
 
     flash("Tunnus luotu, voit nyt kirjautua sisään")
     return redirect("/login")
