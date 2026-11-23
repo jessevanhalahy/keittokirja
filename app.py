@@ -68,7 +68,7 @@ def create_recipe():
     errors = validate_recipe(title, ingredients, instructions)
     if errors:
         for error in errors:
-            flash(error)
+            flash(error, "error")
         filled = {"title": title,
                   "ingredients": ingredients,
                   "instructions": instructions}
@@ -165,7 +165,7 @@ def create():
     try:
         users.create_user(username, password1)
     except sqlite3.IntegrityError:
-        flash("VIRHE: tunnus on jo varattu")
+        flash("VIRHE: tunnus on jo varattu", "error")
         filled = {"username": username}
         return render_template("register.html", filled=filled)
 
@@ -187,7 +187,7 @@ def login():
             session["username"] = username
             return redirect("/")
         else:
-            flash("VIRHE: väärä tunnus tai salasana")
+            flash("VIRHE: väärä tunnus tai salasana", "error")
             return redirect("/login")
 
 @app.route("/logout")

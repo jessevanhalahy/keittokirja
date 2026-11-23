@@ -29,8 +29,13 @@ h1, h2 {
 }
 
 .info {
-  border: 2px solid #8b3a1e;
+  border: 2px solid #2e7d32;
   padding: 0.5em;
+  background-color: #e8f5e9;
+}
+
+.error {
+  border-color: #8b3a1e;
   background-color: #fbe9e1;
 }
 

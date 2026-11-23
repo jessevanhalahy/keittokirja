@@ -28,8 +28,8 @@
   </div>
 
   <div class="content">
-    {% for message in get_flashed_messages() %}
-    <p class="info">{{ message }}</p>
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+    <p class="info {{ category }}">{{ message }}</p>
     {% endfor %}
     {% block content %}{% endblock %}
   </div>
