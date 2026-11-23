@@ -20,6 +20,16 @@ def show_lines(content):
     content = content.replace("\n", "<br />")
     return markupsafe.Markup(content)
 
+def validate_recipe(title, ingredients, instructions):
+    errors = []
+    if not title or len(title) > 100:
+        errors.append("VIRHE: reseptin nimen täytyy olla 1–100 merkkiä pitkä")
+    if not ingredients or len(ingredients) > 2000:
+        errors.append("VIRHE: lista aineksista täytyy olla 1–2000 merkkiä pitkä")
+    if not instructions or len(instructions) > 5000:
+        errors.append("VIRHE: valmistusohjeen täytyy olla 1–5000 merkkiä pitkä")
+    return errors
+
 @app.route("/")
 def index():
     all_recipes = recipes.get_recipes()
@@ -45,25 +55,29 @@ def show_recipe(recipe_id):
 @app.route("/new_recipe")
 def new_recipe():
     require_login()
-    return render_template("new_recipe.html")
+    return render_template("new_recipe.html", filled={})
 
 @app.route("/create_recipe", methods=["POST"])
 def create_recipe():
     require_login()
 
     title = request.form["title"]
-    if not title or len(title) > 100:
-        abort(403)
     ingredients = request.form["ingredients"]
-    if not ingredients or len(ingredients) > 2000:
-        abort(403)
     instructions = request.form["instructions"]
-    if not instructions or len(instructions) > 5000:
-        abort(403)
-    user_id = session["user_id"]
 
+    errors = validate_recipe(title, ingredients, instructions)
+    if errors:
+        for error in errors:
+            flash(error)
+        filled = {"title": title,
+                  "ingredients": ingredients,
+                  "instructions": instructions}
+        return render_template("new_recipe.html", filled=filled)
+
+    user_id = session["user_id"]
     recipes.add_recipe(title, ingredients, instructions, user_id)
 
+    flash("Resepti lisätty")
     return redirect("/")
 
 @app.route("/edit_recipe/<int:recipe_id>")
@@ -87,18 +101,22 @@ def update_recipe():
         abort(403)
 
     title = request.form["title"]
-    if not title or len(title) > 100:
-        abort(403)
     ingredients = request.form["ingredients"]
-    if not ingredients or len(ingredients) > 2000:
-        abort(403)
     instructions = request.form["instructions"]
-    if not instructions or len(instructions) > 5000:
-        abort(403)
-    user_id = session["user_id"]
+
+    errors = validate_recipe(title, ingredients, instructions)
+    if errors:
+        for error in errors:
+            flash(error)
+        filled = {"id": recipe_id,
+                  "title": title,
+                  "ingredients": ingredients,
+                  "instructions": instructions}
+        return render_template("edit_recipe.html", recipe=filled)
 
     recipes.update_recipe(recipe_id, title, ingredients, instructions)
 
+    flash("Muutokset tallennettu")
     return redirect("/recipe/" + str(recipe_id))
 
 @app.route("/remove_recipe/<int:recipe_id>", methods=["GET", "POST"])

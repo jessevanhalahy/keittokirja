@@ -7,15 +7,15 @@
 <form action="/create_recipe" method="post">
   <p>
     Nimi: <br />
-    <input type="text" name="title" maxlength="100" required />
+    <input type="text" name="title" value="{{ filled.title }}" maxlength="100" required />
   </p>
   <p>
     Ainekset: <br />
-    <textarea name="ingredients" rows="8" cols="60" maxlength="2000" required></textarea>
+    <textarea name="ingredients" rows="8" cols="60" maxlength="2000" required>{{ filled.ingredients }}</textarea>
   </p>
   <p>
     Valmistusohje: <br />
-    <textarea name="instructions" rows="8" cols="60" maxlength="5000" required></textarea>
+    <textarea name="instructions" rows="8" cols="60" maxlength="5000" required>{{ filled.instructions }}</textarea>
   </p>
   <input type="submit" value="Lisää resepti" />
 </form>
