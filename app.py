@@ -45,6 +45,16 @@ def find_recipe():
         results = []
     return render_template("find_recipe.html", query=query, results=results)
 
+@app.route("/user/<int:user_id>")
+def show_user(user_id):
+    user = users.get_user(user_id)
+    if not user:
+        abort(404)
+    user_recipes = users.get_recipes(user_id)
+    recipe_count = users.get_recipe_count(user_id)
+    return render_template("show_user.html", user=user,
+                           recipes=user_recipes, recipe_count=recipe_count)
+
 @app.route("/recipe/<int:recipe_id>")
 def show_recipe(recipe_id):
     recipe = recipes.get_recipe(recipe_id)

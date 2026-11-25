@@ -5,7 +5,7 @@
 {% block content %}
 <h2>{{ recipe.title }}</h2>
 <p>
-  Lisääjä: {{ recipe.username }}
+  Lisääjä: <a href="/user/{{ recipe.user_id }}">{{ recipe.username }}</a>
 </p>
 {% if session.user_id == recipe.user_id %}
 <p>

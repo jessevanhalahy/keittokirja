@@ -17,6 +17,7 @@
         <li><a href="/">Etusivu</a></li>
         <li><a href="/find_recipe">Haku</a></li>
         {% if session.user_id %}
+        <li><a href="/user/{{ session.user_id }}">Oma sivu</a></li>
         <li><a href="/new_recipe">Lisää resepti</a></li>
         <li><a href="/logout">Kirjaudu ulos</a></li>
         {% else %}
