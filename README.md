@@ -15,7 +15,8 @@
 - Käyttäjä pystyy luomaan tunnuksen ja kirjautumaan sisään.
 - Käyttäjä pystyy lisäämään, muokkaamaan ja poistamaan reseptejä.
 - Käyttäjä näkee lisätyt reseptit ja pystyy etsimään niitä hakusanalla.
-- Luokittelut, arviot ja käyttäjäsivut ovat vielä tekemättä.
+- Sovelluksessa on käyttäjäsivut, jotka näyttävät käyttäjän reseptit ja niiden määrän.
+- Luokittelut ja arviot ovat vielä tekemättä.
 
 ## Sovelluksen asennus
 
@@ -36,6 +37,7 @@ Luo tietokannan taulut:
 
 ```
 $ sqlite3 database.db < schema.sql
+$ sqlite3 database.db < init.sql
 ```
 
 Käynnistä sovellus:
