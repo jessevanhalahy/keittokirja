@@ -30,6 +30,18 @@ def validate_recipe(title, ingredients, instructions):
         errors.append("VIRHE: valmistusohjeen täytyy olla 1–5000 merkkiä pitkä")
     return errors
 
+def get_selected_classes(all_classes):
+    classes = []
+    for entry in request.form.getlist("classes"):
+        if entry:
+            class_title, class_value = entry.split(":")
+            if class_title not in all_classes:
+                abort(403)
+            if class_value not in all_classes[class_title]:
+                abort(403)
+            classes.append((class_title, class_value))
+    return classes
+
 @app.route("/")
 def index():
     all_recipes = recipes.get_recipes()
@@ -78,15 +90,7 @@ def create_recipe():
     instructions = request.form["instructions"].strip()
 
     all_classes = recipes.get_all_classes()
-    classes = []
-    for entry in request.form.getlist("classes"):
-        if entry:
-            class_title, class_value = entry.split(":")
-            if class_title not in all_classes:
-                abort(403)
-            if class_value not in all_classes[class_title]:
-                abort(403)
-            classes.append((class_title, class_value))
+    classes = get_selected_classes(all_classes)
 
     errors = validate_recipe(title, ingredients, instructions)
     if errors:
@@ -114,7 +118,14 @@ def edit_recipe(recipe_id):
         abort(404)
     if recipe["user_id"] != session["user_id"]:
         abort(403)
-    return render_template("edit_recipe.html", recipe=recipe)
+
+    all_classes = recipes.get_all_classes()
+    selected = {}
+    for entry in recipes.get_classes(recipe_id):
+        selected[entry["title"]] = entry["value"]
+
+    return render_template("edit_recipe.html", recipe=recipe,
+                           classes=all_classes, selected=selected)
 
 @app.route("/update_recipe", methods=["POST"])
 def update_recipe():
@@ -130,17 +141,22 @@ def update_recipe():
     ingredients = request.form["ingredients"].strip()
     instructions = request.form["instructions"].strip()
 
+    all_classes = recipes.get_all_classes()
+    classes = get_selected_classes(all_classes)
+
     errors = validate_recipe(title, ingredients, instructions)
     if errors:
         for error in errors:
-            flash(error)
+            flash(error, "error")
         filled = {"id": recipe_id,
                   "title": title,
                   "ingredients": ingredients,
                   "instructions": instructions}
-        return render_template("edit_recipe.html", recipe=filled)
+        return render_template("edit_recipe.html", recipe=filled,
+                               classes=all_classes, selected=dict(classes))
 
-    recipes.update_recipe(recipe_id, title, ingredients, instructions)
+    recipes.update_recipe(recipe_id, title, ingredients, instructions,
+                          classes)
 
     flash("Muutokset tallennettu")
     return redirect("/recipe/" + str(recipe_id))
