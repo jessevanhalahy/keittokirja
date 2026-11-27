@@ -16,7 +16,8 @@
 - Käyttäjä pystyy lisäämään, muokkaamaan ja poistamaan reseptejä.
 - Käyttäjä näkee lisätyt reseptit ja pystyy etsimään niitä hakusanalla.
 - Sovelluksessa on käyttäjäsivut, jotka näyttävät käyttäjän reseptit ja niiden määrän.
-- Luokittelut ja arviot ovat vielä tekemättä.
+- Käyttäjä pystyy valitsemaan reseptille ruokalajin ja valmistusajan.
+- Arviot ovat vielä tekemättä.
 
 ## Sovelluksen asennus
 
