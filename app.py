@@ -71,9 +71,9 @@ def new_recipe():
 def create_recipe():
     require_login()
 
-    title = request.form["title"]
-    ingredients = request.form["ingredients"]
-    instructions = request.form["instructions"]
+    title = request.form["title"].strip()
+    ingredients = request.form["ingredients"].strip()
+    instructions = request.form["instructions"].strip()
 
     errors = validate_recipe(title, ingredients, instructions)
     if errors:
@@ -110,9 +110,9 @@ def update_recipe():
     if recipe["user_id"] != session["user_id"]:
         abort(403)
 
-    title = request.form["title"]
-    ingredients = request.form["ingredients"]
-    instructions = request.form["instructions"]
+    title = request.form["title"].strip()
+    ingredients = request.form["ingredients"].strip()
+    instructions = request.form["instructions"].strip()
 
     errors = validate_recipe(title, ingredients, instructions)
     if errors:
@@ -154,7 +154,7 @@ def register():
 
 @app.route("/create", methods=["POST"])
 def create():
-    username = request.form["username"]
+    username = request.form["username"].strip()
     password1 = request.form["password1"]
     password2 = request.form["password2"]
 
