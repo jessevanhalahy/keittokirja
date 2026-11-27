@@ -9,6 +9,21 @@
     Nimi: <br />
     <input type="text" name="title" value="{{ filled.title }}" maxlength="100" required />
   </p>
+  {% for title in classes %}
+  <p>
+    {{ title }}: <br />
+    <select name="classes">
+      <option value="">(valitse)</option>
+      {% for value in classes[title] %}
+      {% if filled.classes and filled.classes[title] == value %}
+      <option value="{{ title }}:{{ value }}" selected>{{ value }}</option>
+      {% else %}
+      <option value="{{ title }}:{{ value }}">{{ value }}</option>
+      {% endif %}
+      {% endfor %}
+    </select>
+  </p>
+  {% endfor %}
   <p>
     Ainekset: <br />
     <textarea name="ingredients" rows="8" cols="60" maxlength="2000" required>{{ filled.ingredients }}</textarea>

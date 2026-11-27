@@ -13,6 +13,13 @@
   <a href="/remove_recipe/{{ recipe.id }}">Poista</a>
 </p>
 {% endif %}
+{% if classes %}
+<ul>
+  {% for entry in classes %}
+  <li>{{ entry.title }}: {{ entry.value }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
 <h3>Ainekset</h3>
 <p>{{ recipe.ingredients | show_lines }}</p>
 <h3>Valmistusohje</h3>

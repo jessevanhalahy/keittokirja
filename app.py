@@ -60,12 +60,14 @@ def show_recipe(recipe_id):
     recipe = recipes.get_recipe(recipe_id)
     if not recipe:
         abort(404)
-    return render_template("show_recipe.html", recipe=recipe)
+    classes = recipes.get_classes(recipe_id)
+    return render_template("show_recipe.html", recipe=recipe, classes=classes)
 
 @app.route("/new_recipe")
 def new_recipe():
     require_login()
-    return render_template("new_recipe.html", filled={})
+    classes = recipes.get_all_classes()
+    return render_template("new_recipe.html", classes=classes, filled={})
 
 @app.route("/create_recipe", methods=["POST"])
 def create_recipe():
@@ -75,20 +77,34 @@ def create_recipe():
     ingredients = request.form["ingredients"].strip()
     instructions = request.form["instructions"].strip()
 
+    all_classes = recipes.get_all_classes()
+    classes = []
+    for entry in request.form.getlist("classes"):
+        if entry:
+            class_title, class_value = entry.split(":")
+            if class_title not in all_classes:
+                abort(403)
+            if class_value not in all_classes[class_title]:
+                abort(403)
+            classes.append((class_title, class_value))
+
     errors = validate_recipe(title, ingredients, instructions)
     if errors:
         for error in errors:
             flash(error, "error")
         filled = {"title": title,
                   "ingredients": ingredients,
-                  "instructions": instructions}
-        return render_template("new_recipe.html", filled=filled)
+                  "instructions": instructions,
+                  "classes": dict(classes)}
+        return render_template("new_recipe.html", classes=all_classes,
+                               filled=filled)
 
     user_id = session["user_id"]
-    recipes.add_recipe(title, ingredients, instructions, user_id)
+    recipe_id = recipes.add_recipe(title, ingredients, instructions,
+                                   user_id, classes)
 
     flash("Resepti lisätty")
-    return redirect("/")
+    return redirect("/recipe/" + str(recipe_id))
 
 @app.route("/edit_recipe/<int:recipe_id>")
 def edit_recipe(recipe_id):
