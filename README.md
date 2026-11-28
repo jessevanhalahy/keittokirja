@@ -17,7 +17,7 @@
 - Käyttäjä näkee lisätyt reseptit ja pystyy etsimään niitä hakusanalla.
 - Sovelluksessa on käyttäjäsivut, jotka näyttävät käyttäjän reseptit ja niiden määrän.
 - Käyttäjä pystyy valitsemaan reseptille ruokalajin ja valmistusajan.
-- Arviot ovat vielä tekemättä.
+- Käyttäjä pystyy antamaan toisen käyttäjän reseptille arvion (arvosana ja kommentti). Reseptin sivulla näkyvät arviot ja niiden keskiarvo.
 
 ## Sovelluksen asennus
 
