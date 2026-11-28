@@ -33,6 +33,7 @@
     <textarea name="instructions" rows="8" cols="60" maxlength="5000" required>{{ recipe.instructions }}</textarea>
   </p>
   <input type="hidden" name="recipe_id" value="{{ recipe.id }}" />
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
   <input type="submit" value="Tallenna muutokset" />
 </form>
 {% endblock %}
