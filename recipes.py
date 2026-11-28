@@ -61,6 +61,8 @@ def update_recipe(recipe_id, title, ingredients, instructions, classes):
         db.execute(sql, [recipe_id, class_title, class_value])
 
 def remove_recipe(recipe_id):
+    sql = "DELETE FROM reviews WHERE recipe_id = ?"
+    db.execute(sql, [recipe_id])
     sql = "DELETE FROM recipe_classes WHERE recipe_id = ?"
     db.execute(sql, [recipe_id])
     sql = "DELETE FROM recipes WHERE id = ?"
@@ -73,3 +75,8 @@ def find_recipes(query):
              ORDER BY id DESC"""
     like = "%" + query + "%"
     return db.query(sql, [like, like])
+
+def add_review(recipe_id, user_id, grade, comment):
+    sql = """INSERT INTO reviews (recipe_id, user_id, grade, comment)
+             VALUES (?, ?, ?, ?)"""
+    db.execute(sql, [recipe_id, user_id, grade, comment])

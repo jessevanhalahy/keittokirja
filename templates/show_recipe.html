@@ -24,4 +24,25 @@
 <p>{{ recipe.ingredients | show_lines }}</p>
 <h3>Valmistusohje</h3>
 <p>{{ recipe.instructions | show_lines }}</p>
+{% if session.user_id and session.user_id != recipe.user_id %}
+<h3>Arvioi resepti</h3>
+<form action="/create_review" method="post">
+  <p>
+    Arvosana: <br />
+    <select name="grade">
+      <option value="5">5 – erinomainen</option>
+      <option value="4">4 – kiitettävä</option>
+      <option value="3">3 – hyvä</option>
+      <option value="2">2 – tyydyttävä</option>
+      <option value="1">1 – välttävä</option>
+    </select>
+  </p>
+  <p>
+    Kommentti: <br />
+    <textarea name="comment" rows="4" cols="60" maxlength="1000" required></textarea>
+  </p>
+  <input type="hidden" name="recipe_id" value="{{ recipe.id }}" />
+  <input type="submit" value="Lähetä arvio" />
+</form>
+{% endif %}
 {% endblock %}
