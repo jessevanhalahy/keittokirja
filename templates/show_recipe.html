@@ -24,6 +24,24 @@
 <p>{{ recipe.ingredients | show_lines }}</p>
 <h3>Valmistusohje</h3>
 <p>{{ recipe.instructions | show_lines }}</p>
+<h3>Arviot</h3>
+{% if reviews %}
+<p>
+  Keskiarvo: {{ "%.1f" | format(average_grade) }} / 5
+  ({{ reviews | length }} arviota)
+</p>
+{% for review in reviews %}
+<div class="review">
+  <p>
+    <a href="/user/{{ review.user_id }}">{{ review.username }}</a>:
+    {{ review.grade }} / 5
+  </p>
+  <p>{{ review.comment | show_lines }}</p>
+</div>
+{% endfor %}
+{% else %}
+<p>Reseptillä ei ole vielä arvioita.</p>
+{% endif %}
 {% if session.user_id and session.user_id != recipe.user_id %}
 <h3>Arvioi resepti</h3>
 <form action="/create_review" method="post">

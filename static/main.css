@@ -61,3 +61,8 @@ nav li:not(:first-of-type) {
 nav li:not(:last-of-type) {
   border-right: 1px solid black;
 }
+
+.review {
+  border-top: 1px solid #e3d5bf;
+  padding: 0.2em 0;
+}

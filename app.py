@@ -73,7 +73,11 @@ def show_recipe(recipe_id):
     if not recipe:
         abort(404)
     classes = recipes.get_classes(recipe_id)
-    return render_template("show_recipe.html", recipe=recipe, classes=classes)
+    reviews = recipes.get_reviews(recipe_id)
+    average_grade = recipes.get_average_grade(recipe_id)
+    return render_template("show_recipe.html", recipe=recipe,
+                           classes=classes, reviews=reviews,
+                           average_grade=average_grade)
 
 @app.route("/new_recipe")
 def new_recipe():

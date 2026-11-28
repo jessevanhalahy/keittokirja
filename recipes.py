@@ -80,3 +80,18 @@ def add_review(recipe_id, user_id, grade, comment):
     sql = """INSERT INTO reviews (recipe_id, user_id, grade, comment)
              VALUES (?, ?, ?, ?)"""
     db.execute(sql, [recipe_id, user_id, grade, comment])
+
+def get_reviews(recipe_id):
+    sql = """SELECT reviews.grade,
+                    reviews.comment,
+                    users.id user_id,
+                    users.username
+             FROM reviews, users
+             WHERE reviews.user_id = users.id AND
+                   reviews.recipe_id = ?
+             ORDER BY reviews.id DESC"""
+    return db.query(sql, [recipe_id])
+
+def get_average_grade(recipe_id):
+    sql = "SELECT AVG(grade) FROM reviews WHERE recipe_id = ?"
+    return db.query(sql, [recipe_id])[0][0]
